@@ -1,0 +1,7 @@
+/.idea/
+/aggregator-spring.iml
+/city-temperature-aggregation-spring.iml
+/target/
+dependency-reduced-pom.xml
+confluent-kafka.properties
+kafka_publish_curl.txt
