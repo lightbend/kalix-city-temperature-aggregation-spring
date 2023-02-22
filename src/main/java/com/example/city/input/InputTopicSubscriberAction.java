@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 
 @Subscribe.Topic("input")
-@Profile("prod")
+//@Profile("prod")
 public class InputTopicSubscriberAction extends Action {
 
     private static Logger logger = LoggerFactory.getLogger(InputTopicSubscriberAction.class);

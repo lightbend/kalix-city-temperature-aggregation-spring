@@ -8,7 +8,7 @@ import kalix.springsdk.annotations.Subscribe;
 import org.springframework.context.annotation.Profile;
 
 @Subscribe.EventSourcedEntity(value = CityEntity.class,ignoreUnknown = true)
-@Profile("prod")
+//@Profile("prod")
 public class OutputTopicPublisherAction extends Action {
 
     @Publish.Topic("output")

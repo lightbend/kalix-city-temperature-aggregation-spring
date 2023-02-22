@@ -20,7 +20,7 @@ archetype:generate \
 -DarchetypeVersion=LATEST
 ```
 Define value for property 'groupId': `com.example`<br>
-Define value for property 'artifactId': `city-temperature-aggregation-sprin`<br>
+Define value for property 'artifactId': `city-temperature-aggregation-spring`<br>
 Define value for property 'version' 1.0-SNAPSHOT: :<br>
 Define value for property 'package' io.kx: : `com.example.city`<br>
 
