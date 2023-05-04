@@ -1,11 +1,11 @@
 package com.example.city;
 
 import io.grpc.Status;
+import kalix.javasdk.annotations.EntityKey;
+import kalix.javasdk.annotations.EntityType;
+import kalix.javasdk.annotations.EventHandler;
 import kalix.javasdk.eventsourcedentity.EventSourcedEntity;
 import kalix.javasdk.eventsourcedentity.EventSourcedEntityContext;
-import kalix.springsdk.annotations.EntityKey;
-import kalix.springsdk.annotations.EntityType;
-import kalix.springsdk.annotations.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @EntityType("city")
 @EntityKey("cityId")
 @RequestMapping("/city/{cityId}")
-public class CityEntity extends EventSourcedEntity<Model.City> {
+public class CityEntity extends EventSourcedEntity<Model.City, Model.Event> {
 
     private static Logger logger = LoggerFactory.getLogger(CityEntity.class);
 
@@ -50,10 +50,12 @@ public class CityEntity extends EventSourcedEntity<Model.City> {
     public Effect<String> addTemperature(@RequestBody Model.AddTemperatureRequest request){
         logger.info("addTemperature [{}]: {}", cityId,request);
         if (currentState().isEmpty()) {
+            logger.info("addTemperature [{}] state is empty", cityId);
             //if city not added yet ignore
             return effects().reply(Model.RESPONSE_OK);
         }else if(currentState().isDuplicate(request.recordId())){
             //if duplicate skip
+            logger.info("addTemperature [{}] duplicate record", cityId);
             return effects().reply(Model.RESPONSE_OK);
         }else{
             var firstRecordInAggregation = false;
@@ -73,6 +75,7 @@ public class CityEntity extends EventSourcedEntity<Model.City> {
                             Instant.now());
             var tmpNewState = currentState().onTemperatureAddedEvent(temperatureAddedEvent);
             if(tmpNewState.isAggregationFinished()) {
+                logger.info("addTemperature [{}] persisting TemperatureAggregatedEvent", cityId);
                 var temperatureAggregatedEvent =
                         new Model.TemperatureAggregatedEvent(
                                 cityId,
@@ -87,6 +90,7 @@ public class CityEntity extends EventSourcedEntity<Model.City> {
                         );
                 return effects().emitEvent(temperatureAggregatedEvent).thenReply(updatedState -> Model.RESPONSE_OK);
             }else{
+                logger.info("addTemperature [{}] persisting TemperatureAddedEvent", cityId);
                 //if aggregation is NOT finished, add
                 return effects().emitEvent(temperatureAddedEvent).thenReply(newState -> Model.RESPONSE_OK);
             }

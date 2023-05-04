@@ -2,8 +2,8 @@
 version: "3"
 services:
   kalix-proxy:
-    image: gcr.io/kalix-public/kalix-proxy:1.1.2
-    command: -Dconfig.resource=dev-mode.conf -Dkalix.proxy.eventing.support=kafka
+    image: gcr.io/kalix-public/kalix-proxy:1.1.7
+    command: -Dconfig.resource=dev-mode.conf -Dkalix.proxy.eventing.support=kafka -Djavax.net.ssl.trustStore=/conf/aivenCA.jks -Djavax.net.ssl.trustStorePassword=pass123
     ports:
       - "9000:9000"
     extra_hosts:
@@ -20,5 +20,6 @@ services:
       # Uncomment to set the JWT dev secret issuer
       # JWT_DEV_SECRET_ISSUER: "my-issuer"
     volumes:
-      - ./local.kafka.properties:/conf/kafka.properties
+      - ./aiven-kafka.properties:/conf/kafka.properties
+      - ./aivenCA.jks:/conf/aivenCA.jks
 

@@ -1,7 +1,8 @@
 package com.example.city;
 
-import kalix.springsdk.testkit.KalixIntegrationTestKitSupport;
 
+
+import kalix.spring.testkit.KalixIntegrationTestKitSupport;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

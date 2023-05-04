@@ -2,11 +2,10 @@ package com.example.city.input;
 
 import com.example.city.Model;
 import kalix.javasdk.action.Action;
-import kalix.springsdk.KalixClient;
-import kalix.springsdk.annotations.Subscribe;
+import kalix.javasdk.annotations.Subscribe;
+import kalix.spring.KalixClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Profile;
 
 @Subscribe.Topic("input")
 //@Profile("prod")

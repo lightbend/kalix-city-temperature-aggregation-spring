@@ -1,6 +1,7 @@
 package com.example.city;
 
-import kalix.springsdk.testkit.EventSourcedTestKit;
+
+import kalix.javasdk.testkit.EventSourcedTestKit;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -14,7 +15,7 @@ public class UnitTest {
         var cityId = UUID.randomUUID().toString();
         var aggregationLimit = 3;
         var aggregationTimeWindowSeconds = 10;
-        EventSourcedTestKit<Model.City,CityEntity> testKit = EventSourcedTestKit.of(cityId,CityEntity::new);
+        EventSourcedTestKit<Model.City, Model.Event,CityEntity> testKit = EventSourcedTestKit.of(cityId,CityEntity::new);
 
         var createRequest = new Model.CreateRequest("CITY-%s".formatted(cityId),aggregationLimit,aggregationTimeWindowSeconds);
         var createResult = testKit.call(service -> service.create(createRequest));
@@ -52,7 +53,7 @@ public class UnitTest {
         var cityId = UUID.randomUUID().toString();
         var aggregationLimit = 3;
         var aggregationTimeWindowSeconds = 2;
-        EventSourcedTestKit<Model.City,CityEntity> testKit = EventSourcedTestKit.of(cityId,CityEntity::new);
+        EventSourcedTestKit<Model.City, Model.Event,CityEntity> testKit = EventSourcedTestKit.of(cityId,CityEntity::new);
 
         var createRequest = new Model.CreateRequest("CITY-%s".formatted(cityId),aggregationLimit,aggregationTimeWindowSeconds);
         var createResult = testKit.call(service -> service.create(createRequest));

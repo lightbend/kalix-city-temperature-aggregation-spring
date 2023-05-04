@@ -65,16 +65,17 @@ public interface Model {
     }
 
     //event sourcing durable storage model data definition
+    interface Event extends Model{}
     record CreatedEvent(String cityId,
                         Integer aggregationLimit,
                         Integer aggregationTimeWindowSeconds,
-                        Instant timestamp) implements Model {}
+                        Instant timestamp) implements Event {}
     record TemperatureAddedEvent(String cityId,
                                  String aggregationId,
                                  String recordId, Integer temperature,
                                  boolean firstRecordInAggregation,
                                  Integer aggregationTimeWindowSeconds,
-                                 Instant timestamp) implements Model {}
+                                 Instant timestamp) implements Event {}
     record TemperatureAggregatedEvent(String cityId,
                                       String aggregationId,
                                       Integer avgTemperature,
@@ -83,7 +84,7 @@ public interface Model {
                                       Integer numberOfRecordsAggregated,
                                       Instant aggregationStartTime,
                                       Instant aggregationEndTime,
-                                      Instant timestamp) implements Model {}
+                                      Instant timestamp) implements Event {}
 
     //external api data model
     record CreateRequest( String name,

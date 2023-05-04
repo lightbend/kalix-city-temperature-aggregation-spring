@@ -5,3 +5,6 @@
 dependency-reduced-pom.xml
 confluent-kafka.properties
 kafka_publish_curl.txt
+aiven-kafka.properties
+aivenCA.jks
+ca.crt
