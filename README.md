@@ -100,7 +100,7 @@ Entity is modeled per one instance (in our case city).<br>
 docker system prune 
 ```
 
-##Configure local access ro Aiven Kafka1. 
+## Configure local access to Aiven Kafka. 
 1. Aiven portal: Create Aiven project and provision Apache Kafka service
 2. Aiven portal: Create Kafka topics: `input` and `output`
 3. Aiven portal - Services - Kafka - Connection information - Apache Kafka : Enable `SASL` and Switch to `SASL` Authentication Method
@@ -122,7 +122,7 @@ sasl.mechanism=PLAIN
 ```
 docker-compose up
 ```
-##Start user function
+## Start user function
 ```
 mvn clean compile exec:exec
 ```
